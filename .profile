@@ -30,3 +30,5 @@ fi
 # Added by Toolbox App
 export PATH="$PATH:/home/aj/.local/share/JetBrains/Toolbox/scripts"
 
+# Decrease trackpoint sensitivity
+xinput set-prop "TPPS/2 Elan TrackPoint" "libinput Accel Speed" -0.5
