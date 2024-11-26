@@ -154,15 +154,17 @@ bindsym $mod+r mode "resize"
 # [Workspaces]
 set $wsTerminal "0:⭐ Terminal"
 set $wsBrowser  "1:🌐 Browser"
-set $wsWork "2: 🔨 Work"
-set $ws1 "3:1"
-set $ws2 "4:2"
-set $ws3 "5:3"
+set $wsWork     "2:🛠️ Work"
+set $wsMisc     "3:📦 Misc"
+set $ws1 "4:1"
+set $ws2 "5:2"
+set $ws3 "6:3"
 
 # [Workspaces][Switching]
-bindsym $mod+space workspace $wsTerminal
+bindsym $mod+t workspace $wsTerminal
 bindsym $mod+Alt_R workspace $wsBrowser
-bindsym $mod+Alt_L workspace $wsWork
+bindsym $mod+space workspace $wsWork
+bindsym $mod+Alt_L workspace $wsMisc
 bindsym $mod+1 workspace number $ws1
 bindsym $mod+2 workspace number $ws2
 bindsym $mod+3 workspace number $ws3
@@ -173,9 +175,10 @@ bindsym $mod+7 workspace number $ws7
 bindsym $mod+8 workspace number $ws8
 bindsym $mod+9 workspace number $ws9
 # [Workspaces][Moving containers]
-bindsym $mod+Shift+space move container to workspace $wsTerminal
+bindsym $mod+Shift+t move container to workspace $wsTerminal
 bindsym $mod+Shift+Alt_R move container to workspace $wsBrowser
-bindsym $mod+Shift+Alt_L move container to workspace $wsWork
+bindsym $mod+Shift+space move container to workspace $wsWork
+bindsym $mod+Shift+Alt_L move container to workspace $wsMisc
 bindsym $mod+Shift+1 move container to workspace number $ws1
 bindsym $mod+Shift+2 move container to workspace number $ws2
 bindsym $mod+Shift+3 move container to workspace number $ws3
@@ -215,18 +218,29 @@ bar {
 
 # [Keybinds]
 # Lockscreen
-bindsym $mod+Shift+x exec i3lock --ignore-empty-password --show-failed-attempts --image ~/.config/i3/wallpapers/lockscreen/ubuntu-wallpaper-1920x1080.png
+bindsym $mod+Shift+x exec i3lock --ignore-empty-password --show-failed-attempts --image ~/.config/i3/wallpapers/lockscreen/ubuntu-wallpaper-1920x1200.png
+
+# Brightness
 bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +5%
 bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%-
 
+# Special key
+bindsym XF86Launch1 exec --no-startup-id brightnessctl set 5%-
+
+# Screenshots
+## Clipboard Screenshots
+bindsym Print exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
+
 # [Wallpaper]
-exec --no-startup-id feh --bg-scale ~/.config/i3/wallpapers/homescreen/ubuntu-wallpaper-1920x1080.png
+exec --no-startup-id feh --bg-scale ~/.config/i3/wallpapers/homescreen/ubuntu-wallpaper-1920x1200.png
 
 # [Assign programs to workspaces]
 for_window [class="Gnome-terminal"] move to workspace $wsTerminal
 for_window [class="Brave-browser"] move to workspace $wsBrowser
+for_window [class="obsidian"] move to workspace $wsWork
 exec gnome-terminal
 exec brave-browser
+exec obsidian
 
 # [Compton]
 exec compton --fading --opacity-rule "75:class_g = 'Gnome-terminal'"
